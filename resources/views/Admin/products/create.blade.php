@@ -95,12 +95,13 @@
                                     name="status"
                                     class="mt-1 block w-full py-2 px-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 dark:text-gray-200 rounded-md shadow-sm sm:text-sm"
                                 >
-                                    <option value="available">Available
+                                    <option value="1">
+                                        Available
                                     </option>
-                                    <option value="out_of_stock">
+                                    <option value="2">
                                         Out of Stock
                                     </option>
-                                    <option value="discontinued">
+                                    <option value="3">
                                         Discontinued
                                     </option>
                                 </select>
