@@ -134,7 +134,7 @@
             <x-responsive-nav-link :href="route('admin.products.show')" :active="request()->routeIs('admin.products.show')">
                 <i class="fas fa-box mr-2"></i> {{ __('Manage Products') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.blogs.show')" :active="request()->routeIs('admin.posts.show')">
+            <x-responsive-nav-link :href="route('admin.blogs.show')" :active="request()->routeIs('admin.blogs.show')">
                 <i class="fas fa-newspaper mr-2"></i> {{ __('Manage Posts') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.users.show')" :active="request()->routeIs('admin.users.show')">
