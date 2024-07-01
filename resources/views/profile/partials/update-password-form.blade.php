@@ -1,15 +1,12 @@
-<section>
-    <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+{{-- Card: Cập nhật mật khẩu --}}
+<div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 transform hover:shadow-lg transition duration-300 ease-in-out">
+    <div class="flex items-center mb-4">
+        <i class="fas fa-lock text-2xl text-indigo-500 mr-3"></i>
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
             {{ __('Update Password') }}
         </h2>
-
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __('Ensure your account is using a long, random password to stay secure.') }}
-        </p>
-    </header>
-
-    <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
+    </div>
+    <form method="post" action="{{ route('user.password.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('put')
 
@@ -45,4 +42,4 @@
             @endif
         </div>
     </form>
-</section>
+</div>
