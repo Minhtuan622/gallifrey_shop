@@ -4,54 +4,55 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\Admin\BaseAdminController;
+use Illuminate\Support\Facades\Storage;
 
-class BannerController extends Controller
+class BannerController extends BaseAdminController
 {
-  public function index()
-  {
-    $banners = Banner::all();
-    return view('admin.banners.index', compact('banners'));
-  }
+  protected string $viewPath = 'admin.banners';
+  protected string $routePrefix = 'admin.banners';
+  protected string $modelClass = Banner::class;
 
-  public function create()
-  {
-    return view('admin.banners.create');
-  }
-
-  public function store(Request $request)
+  public function store(Request $request): RedirectResponse
   {
     $request->validate([
       'title' => 'required',
-      'image_url' => 'required',
       'link_url' => 'required',
-      'position' => 'required'
+      'position' => 'required',
+      'upload_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    Banner::create($request->all());
-    return redirect()->route('admin.banners.index')->with('success', 'Banner created successfully.');
+    if ($request->hasFile('upload_image') && $request->file('upload_image')->isValid()) {
+      $imagePath = $request->file('upload_image')->store('banners', 'public');
+      $data = $request->all();
+      $data['image'] = Storage::url($imagePath);
+
+      return parent::store(new Request($data));
+    }
+
+    return back()->with('error', 'Please upload a valid image file.');
   }
 
-  public function edit(Banner $banner)
-  {
-    return view('admin.banners.edit', compact('banner'));
-  }
-
-  public function update(Request $request, Banner $banner)
+  public function update(Request $request, int $id): RedirectResponse
   {
     $request->validate([
       'title' => 'required',
-      'image_url' => 'required',
+      'image_url' => 'required_without:upload_image',
       'link_url' => 'required',
-      'position' => 'required'
+      'position' => 'required',
+      'upload_image' => 'sometimes|image'
     ]);
 
-    $banner->update($request->all());
-    return redirect()->route('admin.banners.index')->with('success', 'Banner updated successfully.');
-  }
+    $data = $request->all();
 
-  public function destroy(Banner $banner)
-  {
-    $banner->delete();
-    return redirect()->route('admin.banners.index')->with('success', 'Banner deleted successfully.');
+    if ($request->hasFile('upload_image')) {
+      $imagePath = $request
+        ->file('upload_image')
+        ->store('banners', 'public');
+      $data['image'] = Storage::url($imagePath);
+    }
+
+    return parent::update(new Request($data), $id);
   }
 }

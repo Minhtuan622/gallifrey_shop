@@ -85,6 +85,7 @@
                 accept="image/*"
                 class="hidden"
                 onchange="previewImage(event)"
+                required
               />
               <img
                 id="image_preview"

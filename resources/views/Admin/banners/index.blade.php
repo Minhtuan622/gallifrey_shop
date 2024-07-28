@@ -66,8 +66,10 @@
                 {{ $banner->title }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <img src="{{ $banner->image_url }}" alt="{{ $banner->title }}"
-                     class="h-12 w-24 rounded-md object-cover">
+                <a href="{{ $banner->image_url }}" target="_blank">
+                  <img src="{{ $banner->image_url }}" alt="{{ $banner->title }}"
+                       class="h-12 w-24 rounded-md object-cover">
+                </a>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                 <a href="{{ $banner->link_url }}" target="_blank"
@@ -100,7 +102,7 @@
       </div>
 
       <div class="mt-6">
-        {{--                {{ $banners->links() }} --}}
+        {{ $banners->links() }}
       </div>
     </div>
   </div>

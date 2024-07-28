@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\User\AboutUsController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\ContactController;
@@ -14,7 +15,6 @@ use App\Http\Controllers\User\BlogController as UserBlogController;
 use App\Http\Controllers\User\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
-use App\Http\Controllers\BannerController;
 
 Route::get('/', static function () {
   return view('welcome');
@@ -29,33 +29,12 @@ Route::middleware(['auth:admin', 'verified'])
     $route->get('/orders', [OrderController::class, 'show'])->name('orders.show');
     $route->get('/orders/detail', [OrderController::class, 'detail'])->name('orders.detail');
 
-    $route->prefix('products')
-      ->name('products.')
-      ->group(function () use ($route) {
-        $route->get('/', [ProductController::class, 'index'])->name('show');
-        $route->get('/create', [ProductController::class, 'create'])->name('create');
-        $route->post('/create', [ProductController::class, 'store'])->name('store');
-        $route->get('/edit/{product}', [ProductController::class, 'edit'])->name('edit');
-        $route->put('/update/{product}', [ProductController::class, 'update'])->name('update');
-        $route->delete('/delete/{product}', [ProductController::class, 'destroy'])->name('delete');
-      });
-
-    Route::prefix('blogs')
-      ->name('blogs.')
-      ->group(function () use ($route) {
-        $route->get('/', [BlogController::class, 'index'])->name('show');
-        $route->get('/create', [BlogController::class, 'create'])->name('create');
-        $route->post('/create', [BlogController::class, 'store'])->name('store');
-        $route->get('/edit/{blog}', [BlogController::class, 'edit'])->name('edit');
-        $route->put('/update/{blog}', [BlogController::class, 'update'])->name('update');
-        $route->delete('/delete/{blog}', [BlogController::class, 'destroy'])->name('delete');
-      });
-
-    $route->get('/users', [UserController::class, 'show'])->name('users.show');
-    $route->get('/users/edit', [UserController::class, 'showEdit'])->name('users.showEdit');
-
-    Route::resource('banners', BannerController::class);
-
+    $route->resources([
+      'products' => ProductController::class,
+      'blogs' => BlogController::class,
+      'users' => UserController::class,
+      'banners' => BannerController::class,
+    ]);
   });
 
 Route::middleware(['auth', 'verified'])

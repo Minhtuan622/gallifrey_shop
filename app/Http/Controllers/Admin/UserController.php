@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends BaseAdminController
 {
-    public function show()
-    {
-        return view('admin.users.index');
-    }
+  protected string $viewPath = 'admin.users';
+  protected string $routePrefix = 'admin.users';
+  protected string $modelClass = User::class;
 
-    public function showEdit()
-    {
-        return view('admin.users.edit');
-    }
+  public function store(Request $request)
+  {
+    // Add any User-specific validation or logic here if needed
+    return parent::store();
+  }
+
+  public function update($id, Request $request)
+  {
+    $user = User::findOrFail($id);
+    // Add any User-specific validation or logic here if needed
+    return parent::update($user);
+  }
 }

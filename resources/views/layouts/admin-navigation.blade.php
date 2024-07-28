@@ -36,13 +36,13 @@
                 <x-dropdown-link :href="route('admin.orders.show')">
                   <i class="fas fa-shopping-cart mr-2"></i> {{ __('Orders') }}
                 </x-dropdown-link>
-                <x-dropdown-link :href="route('admin.products.show')">
+                <x-dropdown-link :href="route('admin.products.index')">
                   <i class="fas fa-box mr-2"></i> {{ __('Products') }}
                 </x-dropdown-link>
-                <x-dropdown-link :href="route('admin.blogs.show')">
+                <x-dropdown-link :href="route('admin.blogs.index')">
                   <i class="fas fa-newspaper mr-2"></i> {{ __('Posts') }}
                 </x-dropdown-link>
-                <x-dropdown-link :href="route('admin.users.show')">
+                <x-dropdown-link :href="route('admin.users.index')">
                   <i class="fas fa-users mr-2"></i> {{ __('Users') }}
                 </x-dropdown-link>
                 <x-dropdown-link :href="route('admin.banners.index')">
@@ -148,13 +148,13 @@
       <x-responsive-nav-link :href="route('admin.orders.show')" :active="request()->routeIs('admin.orders.show')">
         <i class="fas fa-shopping-cart mr-2"></i> {{ __('Manage Orders') }}
       </x-responsive-nav-link>
-      <x-responsive-nav-link :href="route('admin.products.show')" :active="request()->routeIs('admin.products.show')">
+      <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
         <i class="fas fa-box mr-2"></i> {{ __('Manage Products') }}
       </x-responsive-nav-link>
-      <x-responsive-nav-link :href="route('admin.blogs.show')" :active="request()->routeIs('admin.blogs.show')">
+      <x-responsive-nav-link :href="route('admin.blogs.index')" :active="request()->routeIs('admin.blogs.index')">
         <i class="fas fa-newspaper mr-2"></i> {{ __('Manage Posts') }}
       </x-responsive-nav-link>
-      <x-responsive-nav-link :href="route('admin.users.show')" :active="request()->routeIs('admin.users.show')">
+      <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
         <i class="fas fa-users mr-2"></i> {{ __('Manage Users') }}
       </x-responsive-nav-link>
       <x-responsive-nav-link :href="route('admin.banners.index')" :active="request()->routeIs('admin.banners.index')">
