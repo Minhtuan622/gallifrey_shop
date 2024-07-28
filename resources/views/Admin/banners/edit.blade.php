@@ -94,7 +94,7 @@
                 id="image_preview"
                 src="{{ $banner->image_url }}"
                 alt="Image Preview"
-                class="mt-4 w-32 h-32 object-cover rounded-md"
+                class="mt-4 object-cover h-[500px] rounded-md"
               />
               @error('upload_image')
               <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

@@ -1,25 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Controllers\Admin\BaseAdminController;
 use Illuminate\Support\Facades\Storage;
 
 class BannerController extends BaseAdminController
 {
-  protected string $viewPath = 'admin.banners';
-  protected string $routePrefix = 'admin.banners';
-  protected string $modelClass = Banner::class;
+  public function __construct()
+  {
+    parent::__construct(
+      'admin.banners',
+      'admin.banners',
+      Banner::class,
+    );
+  }
 
   public function store(Request $request): RedirectResponse
   {
     $request->validate([
-      'title' => 'required',
-      'link_url' => 'required',
-      'position' => 'required',
+      'title' => 'required|string|max:255',
+      'link_url' => 'required|url',
+      'position' => 'required|string',
       'upload_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
@@ -37,19 +41,16 @@ class BannerController extends BaseAdminController
   public function update(Request $request, int $id): RedirectResponse
   {
     $request->validate([
-      'title' => 'required',
-      'image_url' => 'required_without:upload_image',
-      'link_url' => 'required',
-      'position' => 'required',
-      'upload_image' => 'sometimes|image'
+      'title' => 'required|string|max:255',
+      'link_url' => 'required|url',
+      'position' => 'required|string',
+      'upload_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
     $data = $request->all();
 
-    if ($request->hasFile('upload_image')) {
-      $imagePath = $request
-        ->file('upload_image')
-        ->store('banners', 'public');
+    if ($request->hasFile('upload_image') && $request->file('upload_image')->isValid()) {
+      $imagePath = $request->file('upload_image')->store('banners', 'public');
       $data['image'] = Storage::url($imagePath);
     }
 

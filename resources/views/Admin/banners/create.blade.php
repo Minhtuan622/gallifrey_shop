@@ -91,7 +91,7 @@
                 id="image_preview"
                 src=""
                 alt="Image Preview"
-                class="mt-4 hidden w-32 h-32 object-cover rounded-md"
+                class="mt-4 hidden h-[500px] object-cover rounded-md"
               />
               @error('upload_image')
               <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

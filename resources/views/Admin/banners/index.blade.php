@@ -14,12 +14,12 @@
             class="w-full max-w-md px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-gray-200"
             placeholder="Search for banners..."
           />
-          <select
-            class="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-gray-200">
-            <option value="">All Positions</option>
-            <option value="top">Top</option>
-            <option value="sidebar">Sidebar</option>
-          </select>
+{{--          <select--}}
+{{--            class="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-gray-200">--}}
+{{--            <option value="">All Positions</option>--}}
+{{--            <option value="top">Top</option>--}}
+{{--            <option value="sidebar">Sidebar</option>--}}
+{{--          </select>--}}
         </div>
         <a href="{{ route('admin.banners.create') }}"
            class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md focus:outline-none focus:ring focus:ring-indigo-300">

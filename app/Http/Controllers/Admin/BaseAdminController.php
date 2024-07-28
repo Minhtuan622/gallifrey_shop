@@ -16,10 +16,18 @@ abstract class BaseAdminController extends Controller
   protected string $routePrefix;
   protected string $modelClass;
 
+  public function __construct(string $viewPath, string $routePrefix, string $modelClass)
+  {
+    $this->viewPath = $viewPath;
+    $this->routePrefix = $routePrefix;
+    $this->modelClass = $modelClass;
+  }
+
   public function index(): View|Application|Factory|ContractsApplication
   {
-    $items = $this->modelClass::paginate(10);
-    return view("{$this->viewPath}.index", [lcfirst(class_basename($this->modelClass)) . 's' => $items]);
+    return view("{$this->viewPath}.index", [
+      lcfirst(class_basename($this->modelClass)) . 's' => $this->modelClass::paginate(10)
+    ]);
   }
 
   public function create(): View|Application|Factory|ContractsApplication
@@ -29,31 +37,30 @@ abstract class BaseAdminController extends Controller
 
   public function edit(int $id): View|Application|Factory|ContractsApplication
   {
-    $item = $this->modelClass::findOrFail($id);
-    return view("{$this->viewPath}.edit", [lcfirst(class_basename($this->modelClass)) => $item]);
+    return view("{$this->viewPath}.edit", [
+      lcfirst(class_basename($this->modelClass)) => $this->modelClass::findOrFail($id)
+    ]);
   }
 
   public function store(Request $request): RedirectResponse
   {
     $this->modelClass::create($request->all());
-    return $this->redirectWithSuccess('created');
+    return $this->redirectWithMessage('created');
   }
 
   public function update(Request $request, int $id): RedirectResponse
   {
-    $item = $this->modelClass::findOrFail($id);
-    $item->update($request->all());
-    return $this->redirectWithSuccess('updated');
+    $this->modelClass::findOrFail($id)->update($request->all());
+    return $this->redirectWithMessage('updated');
   }
 
   public function destroy(int $id): RedirectResponse
   {
-    $item = $this->modelClass::findOrFail($id);
-    $item->delete();
-    return $this->redirectWithSuccess('deleted');
+    $this->modelClass::findOrFail($id)->delete();
+    return $this->redirectWithMessage('deleted');
   }
 
-  protected function redirectWithSuccess(string $action): RedirectResponse
+  protected function redirectWithMessage(string $action): RedirectResponse
   {
     $modelName = class_basename($this->modelClass);
     return redirect()
