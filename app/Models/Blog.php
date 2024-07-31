@@ -28,5 +28,5 @@ class Blog extends Model
         'published_at',
     ];
 
-    protected $appends = ['author_info', 'status_name'];
+    protected $appends = ['author_info', 'status_name', 'image_url'];
 }

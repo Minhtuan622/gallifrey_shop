@@ -40,7 +40,7 @@
                   <i class="fas fa-box mr-2"></i> {{ __('Products') }}
                 </x-dropdown-link>
                 <x-dropdown-link :href="route('admin.blogs.index')">
-                  <i class="fas fa-newspaper mr-2"></i> {{ __('Posts') }}
+                  <i class="fas fa-newspaper mr-2"></i> {{ __('Blogs') }}
                 </x-dropdown-link>
                 <x-dropdown-link :href="route('admin.users.index')">
                   <i class="fas fa-users mr-2"></i> {{ __('Users') }}
@@ -152,7 +152,7 @@
         <i class="fas fa-box mr-2"></i> {{ __('Manage Products') }}
       </x-responsive-nav-link>
       <x-responsive-nav-link :href="route('admin.blogs.index')" :active="request()->routeIs('admin.blogs.index')">
-        <i class="fas fa-newspaper mr-2"></i> {{ __('Manage Posts') }}
+        <i class="fas fa-newspaper mr-2"></i> {{ __('Manage Blogs') }}
       </x-responsive-nav-link>
       <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
         <i class="fas fa-users mr-2"></i> {{ __('Manage Users') }}
