@@ -62,15 +62,13 @@ class BlogController extends BaseAdminController
 
   private function validateBlog(Request $request, bool $requireImage = true): array
   {
-    $rules = [
+    return $request->validate([
       'title' => 'required|max:255',
       'content' => 'required',
       'published_at' => 'required|date',
       'status' => 'required|in:1,2',
       'image' => $requireImage ? 'required|image|mimes:jpeg,png,jpg,gif|max:2048' : 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ];
-
-    return $request->validate($rules);
+    ]);
   }
 
   private function uploadImage($image): string

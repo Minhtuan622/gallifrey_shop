@@ -3,23 +3,61 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends BaseAdminController
 {
-  protected string $viewPath = 'admin.products';
-  protected string $routePrefix = 'admin.products';
-  protected string $modelClass = Product::class;
-
-  public function store(Request $request)
+  public function __construct()
   {
-    // Add any Product-specific validation or logic here if needed
-    return parent::store();
+    parent::__construct(
+      'admin.products',
+      'admin.products',
+      Product::class,
+    );
   }
 
-  public function update(Request $request, Product $product)
+  public function store(Request $request): RedirectResponse
   {
-    // Add any Product-specific validation or logic here if needed
-    return parent::update($product);
+    $params = $request->all();
+
+    if ($request->hasFile('image')) {
+      $params['image'] = $this->uploadImage($request->file('image'));
+    }
+
+    return parent::store(new Request($params));
+  }
+
+  public function update(Request $request, $id): RedirectResponse
+  {
+    $params = $request->all();
+
+    $product = Product::findOrFail($id);
+
+    if ($request->hasFile('image')) {
+      if ($product->image) {
+        Storage::disk('public')->delete($product->image);
+      }
+      $params['image'] = $this->uploadImage($request->file('image'));
+    }
+
+    return parent::update(new Request($params), $id);
+  }
+
+  public function destroy($id): RedirectResponse
+  {
+    $product = Product::findOrFail($id);
+
+    if ($product->image) {
+      Storage::disk('public')->delete($product->image);
+    }
+
+    return parent::destroy($id);
+  }
+
+  private function uploadImage($image): string
+  {
+    return $image->store('product_images', 'public');
   }
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static paginate(int $int)
  * @method static create(array $all)
+ * @method static findOrFail(int $id)
  * @property mixed $admin_id
  * @property mixed $status
  * @property false|mixed|string $image

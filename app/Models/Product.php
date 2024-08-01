@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static create(array $product)
  * @method static paginate(int $int)
+ * @method static findOrFail(int $id)
  * @property mixed $name
  * @property mixed $description
  * @property mixed $price
@@ -32,5 +33,8 @@ class Product extends Model
         'status',
     ];
 
-    protected $appends = ['status_name'];
+    protected $appends = [
+      'status_name',
+      'image_url',
+      ];
 }
